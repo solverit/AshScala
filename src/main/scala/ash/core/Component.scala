@@ -3,8 +3,7 @@ package ash.core
 /**
  * The base class for a component.
  */
-trait Component
-{
+trait Component {
   /**
    * The entity whose components are included in the node.
    */

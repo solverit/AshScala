@@ -21,19 +21,17 @@ import scala.collection.mutable
  * position component. Systems operate on entities based on the components they have.</p>
  */
 
-trait Entity
-{
+trait Entity {
   var name: String
-  val components: mutable.HashMap[ Class[ _ ], Component ] = mutable.HashMap.empty[ Class[ _ ], Component ]
+  val components: mutable.HashMap[Class[_], Component] = mutable.HashMap.empty[Class[_], Component]
 
   /**
    *
    * @param component
    * @return
    */
-  def add( component: Component ): Entity =
-  {
-    add( component.getClass, component )
+  def add(component: Component): Entity = {
+    add(component.getClass, component)
   }
 
   /**
@@ -43,31 +41,27 @@ trait Entity
    * @param component
    * @return
    */
-  def add( klass: Class[ _ ], component: Component ): Entity =
-  {
-    if( has( klass ) )
-    {
-      remove( klass )
+  def add(klass: Class[_], component: Component): Entity = {
+    if(has(klass)) {
+      remove(klass)
     }
     component.entity = this
-    components.put( klass, component )
+    components.put(klass, component)
     this
   }
 
-  def remove( klass: Class[ _ ] ): Option[ Component ] =
-  {
-    if( has( klass ) )
-    {
-      val component: Option[ Component ] = components.remove( klass )
+  def remove(klass: Class[_]): Option[Component] = {
+    if(has(klass)) {
+      val component: Option[Component] = components.remove(klass)
       component.get.entity = null
       component
-    } else {
+    }
+    else {
       None
     }
   }
 
-  def has( klass: Class[ _ ] ): Boolean =
-  {
-    components.contains( klass )
+  def has(klass: Class[_]): Boolean = {
+    components.contains(klass)
   }
 }

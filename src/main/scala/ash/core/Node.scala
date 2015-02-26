@@ -9,8 +9,7 @@ package ash.core
  * to the list obtained by the system. The engine keeps the list up to date as entities are added
  * to and removed from the engine and as the components on entities change.</p>
  */
-trait Node
-{
+trait Node {
   /**
    * The entity whose components are included in the node.
    */

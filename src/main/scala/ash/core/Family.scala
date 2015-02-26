@@ -6,15 +6,14 @@ package ash.core
  * is used by default and suits most needs.
  */
 
-trait Family
-{
+trait Family {
   def getNodeList(): List
 
   def newEntity(entity: Entity)
 
   def removeEntity(entity: Entity)
 
-  def componentAddedToEntity(entity: Entity, klass: Class[_] )
+  def componentAddedToEntity(entity: Entity, klass: Class[_])
 
   def componentRemovedFromEntity(entity: Entity, klass: Class[_])
 

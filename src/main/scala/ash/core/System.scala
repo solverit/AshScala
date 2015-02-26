@@ -13,13 +13,12 @@ package ash.core
  * that match the node.</p>
  */
 
-trait System
-{
+trait System {
   /**
    * Used internally to hold the priority of this system within the system list. This is
    * used to order the systems so they are updated in the correct order.
    */
-  var priority: Int = 0;
+  var priority: Int = 0
 
   /**
    * Called just after the system is added to the engine, before any calls to the update method.
@@ -27,7 +26,7 @@ trait System
    *
    * @param engine The engine the system was added to.
    */
-  def addToEngine( engine: Engine )
+  def addToEngine(engine: Engine)
 
   /**
    * Called just after the system is removed from the engine, after all calls to the update method.
@@ -35,7 +34,7 @@ trait System
    *
    * @param engine The engine the system was removed from.
    */
-  def removeFromEngine( engine: Engine )
+  def removeFromEngine(engine: Engine)
 
   /**
    * After the system is added to the engine, this method is called every frame until the system
@@ -43,5 +42,5 @@ trait System
    *
    * @param time The duration, in seconds, of the frame.
    */
-  def update( time: Long )
+  def update(time: Long)
 }
