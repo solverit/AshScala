@@ -1,12 +1,14 @@
 package ash.core
 
+import ash.core.{Component, Node}
+
 import scala.collection.mutable
 
 
 class Engine {
   private val entityList: mutable.ListBuffer[Entity] = mutable.ListBuffer.empty[Entity]
   private val systemList: mutable.ListBuffer[System] = mutable.ListBuffer.empty[System]
-  private val families: mutable.HashMap[Class[_], Family] = mutable.HashMap.empty[Class[_], Family]
+  private val families: mutable.HashMap[_ <: Node, Family] = mutable.HashMap.empty[_ <: Node, Family]
 
   def add(entity: Entity) {
     entityList.+:(entity)
@@ -26,15 +28,15 @@ class Engine {
     entityList.result()
   }
 
-  def componentAdded(entity: Entity, klass: Component) {
-    families.foreach((f: (Class[_], Family)) => f._2.componentAddedToEntity(entity, f._1) )
+  def componentAdded(entity: Entity, klass: _ <: Component) {
+    families.foreach((f: (_ <: Node, Family)) => f._2.componentAddedToEntity(entity, f._1) )
   }
 
-  def componentRemoved(entity: Entity, klass: Component) {
-    families.foreach((f: (Class[_], Family)) => f._2.componentRemovedFromEntity(entity, f._1) )
+  def componentRemoved(entity: Entity, klass: _ <: Component) {
+    families.foreach((f: (_ <: Node, Family)) => f._2.componentRemovedFromEntity(entity, f._1) )
   }
 
-  def releaseNodeList(klass: Class[_]) {
+  def releaseNodeList(klass: _ <: Node) {
     val family = families.remove(klass)
     if (family.get != null) {
       family.get.cleanUp()

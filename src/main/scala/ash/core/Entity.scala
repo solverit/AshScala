@@ -23,7 +23,7 @@ import scala.collection.mutable
 
 trait Entity {
   var name: String
-  val components: mutable.HashMap[Class[_], Component] = mutable.HashMap.empty[Class[_], Component]
+  val components: mutable.HashMap[Class[_ <: Component], Component] = mutable.HashMap.empty[Class[_ <: Component], Component]
 
   /**
    *
@@ -41,7 +41,7 @@ trait Entity {
    * @param component
    * @return
    */
-  def add(klass: Class[_], component: Component): Entity = {
+  def add(klass: Class[_ <: Component], component: Component): Entity = {
     if(has(klass)) {
       remove(klass)
     }
@@ -50,7 +50,7 @@ trait Entity {
     this
   }
 
-  def remove(klass: Class[_]): Option[Component] = {
+  def remove(klass: Class[_ <: Component]): Option[Component] = {
     if(has(klass)) {
       val component: Option[Component] = components.remove(klass)
       component.get.entity = null
@@ -61,7 +61,7 @@ trait Entity {
     }
   }
 
-  def has(klass: Class[_]): Boolean = {
+  def has(klass: Class[_ <: Component]): Boolean = {
     components.contains(klass)
   }
 }
